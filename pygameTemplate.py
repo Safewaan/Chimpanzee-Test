@@ -2,12 +2,12 @@
 import sys
 import pygame
 from pygame.locals import *
- 
+
 pygame.init()
- 
+
 fps = 60
 fpsClock = pygame.time.Clock()
- 
+
 #Colours
 colourRed = pygame.Color(255,0,0)
 colourBlue = pygame.Color(0,0,255)
@@ -23,21 +23,32 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption ('Monky Together sTRonk')
 screen.fill(colourWhite)
 
+#Number Images
+one = pygame.image.load("1.png")
+one_rect = one.get_rect()
+one_rect = one_rect.move(0, 0)
+screen.blit(one, one_rect)
+
+two = pygame.image.load("2.png")
+two_rect = two.get_rect()
+two_rect = two_rect.move(160, 160)
+screen.blit(two, two_rect)
+
 # Game loop.
 while True:
-  
+
   for event in pygame.event.get():
     if event.type == QUIT:
       pygame.quit()
       sys.exit()
-  
+
   # Update.
-  
+
   # Draw.
   gD = 6
   incrementX, incrementY = width / gD, height / gD
   incrementXTotal, incrementYTotal = 0, 0
-    
+
   #Generates lines on the x-axis
   for x in range (gD - 1):
       incrementXTotal += incrementX
@@ -47,6 +58,6 @@ while True:
   for y in range (gD - 1):
     incrementYTotal += incrementY
     pygame.draw.line(screen, colourBlack, [0, incrementYTotal], [width, incrementYTotal], 5)
-      
+
   pygame.display.flip()
   fpsClock.tick(fps)
