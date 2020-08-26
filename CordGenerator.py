@@ -34,4 +34,4 @@ def CordGen(gD, width, height):
     #Return
     return (cords)
 
-print (CordGen(5, 800, 800))
+print (len(CordGen(5, 800, 800)))
