@@ -1,4 +1,4 @@
-#Imports
+# Imports
 import sys
 import pygame
 import random
@@ -7,47 +7,38 @@ from pygame.locals import *
 from PygameColours import *
 from NumberImages import *
 
-#Pygame init
+# Pygame init
 pygame.init()
 
 fps = 60
 fpsClock = pygame.time.Clock()
 
-#Screen settings
+# Screen settings
 width, height = 800, 800
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption ('Monky Together sTRonk')
 screen.fill(colourLightCyan)
 
+# Grid variables
 gD = 5
 incrementX, incrementY = width / gD, height / gD
 incrementXTotal, incrementYTotal = 0, 0
 
-#Number Images
+# Number images
 cordsList = CordGenerator.CordGen(gD, width, height)
 
-one_rect = one.get_rect()
-one_rect = one_rect.move(cordsList.pop(random.randint(0, len(cordsList))))
-screen.blit(one, one_rect)
+for x in range(len(numList)):
+  imageLoader = numList[x].get_rect()
+  imageLoader = imageLoader.move(cordsList.pop(random.randint(0, len(cordsList) - 1)))
+  screen.blit(numList[x], imageLoader)
 
-"""
-two_rect = two.get_rect()
-two_rect = two_rect.move(CordGenerator.CordGen(gD, width, height).pop(random.randint(0, len(CordGenerator.CordGen(gD, width, height)))))
-screen.blit(two, two_rect)
-
-three_rect = three.get_rect()
-three_rect = three_rect.move(CordGenerator.CordGen(gD, width, height).pop(random.randint(0, len(CordGenerator.CordGen(gD, width, height)))))
-screen.blit(three, three_rect)
-"""
-
-#Generates lines
-
+# Generates lines
 for xy in range (gD - 1):
-  #x-axis
+  # x-axis
   incrementXTotal += incrementX
   pygame.draw.line(screen, colourBlack, [incrementXTotal, 0], [incrementXTotal, height], 1)
   
-  #y-axis
+  # y-axis
   incrementYTotal += incrementY
   pygame.draw.line(screen, colourBlack, [0, incrementYTotal], [width, incrementYTotal], 1)
 
