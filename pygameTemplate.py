@@ -2,35 +2,38 @@
 import sys
 import pygame
 import random
-import CordGenerator
 from pygame.locals import *
+
+# Local Imports
+import NumberImages
+import CordGenerator
 from PygameColours import *
-from NumberImages import *
 
 # Pygame init
 pygame.init()
 
+# FPS
 fps = 60
 fpsClock = pygame.time.Clock()
 
 # Screen settings
-width, height = 800, 800
+width, height = 900, 900
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption ('Monky Together sTRonk')
 screen.fill(colourLightCyan)
 
 # Grid variables
-gD = 5
+gD = 30
 incrementX, incrementY = width / gD, height / gD
 incrementXTotal, incrementYTotal = 0, 0
 
-# Number images
-cordsList = CordGenerator.CordGen(gD, width, height)
+# Image loader
+numList = NumberImages.imageList(gD) # Images list
+cordsList = CordGenerator.CordGen(gD, width, height) # Coordinates list
 
 for x in range(len(numList)):
-  imageLoader = numList[x].get_rect()
-  imageLoader = imageLoader.move(cordsList.pop(random.randint(0, len(cordsList) - 1)))
-  screen.blit(numList[x], imageLoader)
+    imageResizer = pygame.transform.smoothscale(numList[x], (int(incrementX), int(incrementY)))
+    screen.blit(imageResizer, (cordsList.pop(random.randint(0, len(cordsList) - 1))))
 
 # Generates lines
 for xy in range (gD - 1):

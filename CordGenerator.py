@@ -11,18 +11,19 @@ def CordGen(gD, width, height):
 
     height: int
         Height of the pygame.
+        
     Returns:
     cords: list
         List of all coordinates.
     """
 
-    #Variables
+    # Variables
     incrementX, incrementY = width / gD, height / gD
     incrementXTotal, incrementYTotal = 0, 0
 
     cords = []
 
-    #Main loop
+    # Main loop
     for y in range(gD):
         for x in range(gD):
             cords.append([incrementXTotal, incrementYTotal])
@@ -31,7 +32,5 @@ def CordGen(gD, width, height):
         incrementYTotal += incrementY
         incrementXTotal = 0
 
-    #Return
+    # Return
     return (cords)
-
-print (len(CordGen(5, 800, 800)))
