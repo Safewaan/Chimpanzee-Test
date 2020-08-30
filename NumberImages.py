@@ -1,9 +1,8 @@
 # Imports
 import pygame
-import CordGenerator
 from pygame.locals import *
+from TestVariables import *
 
-# Images
 def imageList(gD):
     """
     Generates list of all pygame.image.load to be called in a loop. 
@@ -22,7 +21,7 @@ def imageList(gD):
 
     # Prevents ctd if gD ** 2 is larger than available images
     if gD ** 2 >= 20:
-        loopNum = 19
+        loopNum = 20
     
     else: 
         loopNum = gD ** 2

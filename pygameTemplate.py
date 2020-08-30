@@ -7,7 +7,9 @@ from pygame.locals import *
 # Local Imports
 import NumberImages
 import CordGenerator
+import LineGenerator
 from PygameColours import *
+from TestVariables import *
 
 # Pygame init
 pygame.init()
@@ -17,33 +19,32 @@ fps = 60
 fpsClock = pygame.time.Clock()
 
 # Screen settings
-width, height = 900, 900
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption ('Monky Together sTRonk')
 screen.fill(colourLightCyan)
 
 # Grid variables
-gD = 30
-incrementX, incrementY = width / gD, height / gD
-incrementXTotal, incrementYTotal = 0, 0
+incrementX, incrementY = int(width / gD), int(height / gD)
+
+# Variables
+currentNum = 0
+white = pygame.image.load("white.png")
+white = pygame.transform.smoothscale(white, (incrementX, incrementY))
 
 # Image loader
 numList = NumberImages.imageList(gD) # Images list
-cordsList = CordGenerator.CordGen(gD, width, height) # Coordinates list
+cordsList = CordGenerator.cordGen(gD, width, height) # Coordinates list
+imageRectList = [] #Image rectangles list
 
 for x in range(len(numList)):
-    imageResizer = pygame.transform.smoothscale(numList[x], (int(incrementX), int(incrementY)))
-    screen.blit(imageResizer, (cordsList.pop(random.randint(0, len(cordsList) - 1))))
+  image = pygame.transform.smoothscale(numList[x], (incrementX, incrementY))
+  imageRect = image.get_rect()
+  imageRect = imageRect.move((cordsList.pop(random.randint(0, len(cordsList) - 1))))
+  imageRectList.append(imageRect)
+  screen.blit(image, imageRectList[x])
 
 # Generates lines
-for xy in range (gD - 1):
-  # x-axis
-  incrementXTotal += incrementX
-  pygame.draw.line(screen, colourBlack, [incrementXTotal, 0], [incrementXTotal, height], 1)
-  
-  # y-axis
-  incrementYTotal += incrementY
-  pygame.draw.line(screen, colourBlack, [0, incrementYTotal], [width, incrementYTotal], 1)
+LineGenerator.lineGen(gD, incrementX, incrementY)
 
 # Game loop.
 while True:
@@ -52,6 +53,22 @@ while True:
     if event.type == QUIT:
       pygame.quit()
       sys.exit()
+
+    if event.type == MOUSEBUTTONDOWN:
+      mouse_pos = event.pos
+      
+      if imageRectList[currentNum].collidepoint(mouse_pos):
+        
+        if currentNum == 0:
+          for x in range(len(numList)):
+            screen.blit(white, imageRectList[x])
+          LineGenerator.lineGen(gD, incrementX, incrementY)
+        
+        currentNum += 1
+
+      else:
+        pygame.quit()
+        sys.exit()
 
   # Update.
 

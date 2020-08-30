@@ -1,4 +1,7 @@
-def CordGen(gD, width, height):
+# Imports
+from TestVariables import *
+
+def cordGen(gD, width, height):
     """
     Generates coordinates of all line intersections. 
 
@@ -26,7 +29,7 @@ def CordGen(gD, width, height):
     # Main loop
     for y in range(gD):
         for x in range(gD):
-            cords.append([incrementXTotal, incrementYTotal])
+            cords.append([int(incrementXTotal), int(incrementYTotal)])
             incrementXTotal += incrementX
             
         incrementYTotal += incrementY
