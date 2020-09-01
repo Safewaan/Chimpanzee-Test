@@ -2,6 +2,7 @@
 import sys
 import pygame
 import random
+import os
 from pygame.locals import *
 
 # Local Imports
@@ -28,7 +29,7 @@ incrementX, incrementY = int(width / gD), int(height / gD)
 
 # Variables
 currentNum = 0
-white = pygame.image.load("white.png")
+white = pygame.image.load(os.path.join("sprites", "white.png"))
 white = pygame.transform.smoothscale(white, (incrementX, incrementY))
 
 # Image loader

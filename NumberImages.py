@@ -1,5 +1,8 @@
 # Imports
 import pygame
+import os
+
+# Local imports
 from pygame.locals import *
 from TestVariables import *
 
@@ -28,7 +31,7 @@ def imageList(gD):
 
     # Main loop
     for x in range(loopNum):
-        numList.append(pygame.image.load(str(x + 1) + ".png"))
+        numList.append(pygame.image.load(os.path.join("sprites", str(x + 1) + ".png")))
 
     # Return
     return numList
